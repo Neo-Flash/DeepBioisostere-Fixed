@@ -257,7 +257,7 @@ class FragLibProcessor:
         frag_smi_to_feature = dict()
         parsed_frag_files = [f"{idx}.pt" for idx in range(num_frags)]
         for idx, f in enumerate(parsed_frag_files):
-            frag_feature = torch.load(os.path.join(frag_tmp_dir, f))
+            frag_feature = torch.load(os.path.join(frag_tmp_dir, f), weights_only=False)
             assert frag_feature, "MolFromSmiles for fragment yielded None."
             # Use the original SMILES from CSV as the key
             original_smi = new_frags_df.iloc[idx]["FRAG-SMI"]
@@ -319,7 +319,7 @@ class FragLibProcessor:
 
         parsed_frag_files = [f"{idx}.pt" for idx in range(num_data)]
         for f in parsed_frag_files:
-            frag_feature = torch.load(os.path.join(self.frag_tmp_dir, f))
+            frag_feature = torch.load(os.path.join(self.frag_tmp_dir, f), weights_only=False)
             assert frag_feature, "MolFromSmiles for fragment yielded None."
             frag_smi_to_feature[frag_feature.smiles] = frag_feature
 
